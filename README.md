@@ -70,6 +70,3 @@ The frontend is responsible for:
 | POST   | `/employee`              | Create employee    |     
 | PUT    | `/employee/:id`          | Update employee    |     
 | DELETE | `/employee/:id`          | Delete employee    |     
-
----
-# employee
