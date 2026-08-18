@@ -1,4 +1,6 @@
 import Hapi from '@hapi/hapi'
+import prismaPlugin from './plugins/prisma';
+import employeePlugin from './plugins/employee';
 
 const init = async () => {
     const server = Hapi.server({
@@ -6,7 +8,9 @@ const init = async () => {
         host: 'localhost',
     })
 
+    await server.register([prismaPlugin, employeePlugin])
     await server.start()
+
 
     console.log(`Server running on ${server.info.uri}`);
 };

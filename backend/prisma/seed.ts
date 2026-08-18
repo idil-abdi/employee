@@ -48,7 +48,17 @@ const main = async () => {
         }
     })
 
-    console.log({ employeeOne, employeeTwo, contractOne});
+    const contractTwo = await prisma.contract.create({
+        data: {
+            contractType: ContractType.PART_TIME,
+            startDate: new Date('2020-11-15'),
+            endData: new Date('2021-12-21'),
+            weeklyHours: 20,
+            employeeId: employeeOne.id
+        }
+    })
+
+    console.log({ employeeOne, employeeTwo, contractOne, contractTwo});
     console.log('Seeding finished successfully.');
 }
 
