@@ -26,9 +26,15 @@ export const createEmployeeService = (prisma: PrismaClient) => ({
     },
 
     async getById(id: string) {
-        return prisma.employee.findUnique({
+        const employee = await prisma.employee.findUnique({
             where: { id }
         })
+
+        if (!employee) {
+                throw new NotFoundException(`Employee with ID: ${id} not found`)
+        }
+
+        return employee
     },
     
     async update(id: string, data: CreateEmployeePayload) {
@@ -37,7 +43,7 @@ export const createEmployeeService = (prisma: PrismaClient) => ({
         })
 
         if (!employee) {
-                throw new NotFoundException(`Employee with ${id} not found`)
+                throw new NotFoundException(`Employee with ID: ${id} not found`)
         }
 
         if(data.email) {

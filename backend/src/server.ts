@@ -1,6 +1,7 @@
 import Hapi from '@hapi/hapi'
 import prismaPlugin from './plugins/prisma';
 import employeePlugin from './plugins/employee';
+import errorHandlerPlugin from './plugins/errorHandlerPlugin ';
 
 const init = async () => {
     const server = Hapi.server({
@@ -8,7 +9,7 @@ const init = async () => {
         host: 'localhost',
     })
 
-    await server.register([prismaPlugin, employeePlugin])
+    await server.register([prismaPlugin, employeePlugin, errorHandlerPlugin])
     await server.start()
 
 
