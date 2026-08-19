@@ -66,7 +66,9 @@ The frontend is responsible for:
 | Method | Endpoint                 | Purpose            | Completed
 | ------ | ------------------------ | ----------------   | ---------
 | GET    | `/employee`              | Get All employee   |     
-| GET    | `/employee/{id}`         | Get employee by id |     
+| GET    | `/employee/:id`          | Get employee by id |     
 | POST   | `/employee`              | Create employee    |     
+| POST   | `/contract`              | Create contract    |     
 | PUT    | `/employee/:id`          | Update employee    |     
 | DELETE | `/employee/:id`          | Delete employee    |     
+| DELETE | `/contract/:id`          | Delete contract    |     
