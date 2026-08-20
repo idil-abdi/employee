@@ -11,6 +11,7 @@ const init = async () => {
     })
 
     await server.register([prismaPlugin, employeePlugin, errorHandlerPlugin, contractPlugin])
+    
     await server.start()
 
 

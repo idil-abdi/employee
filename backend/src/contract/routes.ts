@@ -1,15 +1,20 @@
 import { ServerRoute } from "@hapi/hapi";
-import { createContractHandler, getAllContractHandler } from "./handler";
+import { createContractHandler, getAllContractsHandler, getContractByIdHandler } from "./handler";
 
 export const contractRoutes: ServerRoute[] = [
     {
         method: 'POST',
-        path: '/employees/{employeeId}/contracts',
+        path: '/employee/{employeeId}/contracts',
         handler: createContractHandler,
     },
-    // {
-    //     method: 'GET',
-    //     path: '/contract',
-    //     handler: getAllContractHandler,
-    // },
+    {
+        method: 'GET',
+        path: '/employee/{employeeId}/contracts',
+        handler: getAllContractsHandler,
+    },
+    {
+        method: 'GET',
+        path: '/employee/{employeeId}/contracts/{contractId}',
+        handler: getContractByIdHandler,
+    },
 ]

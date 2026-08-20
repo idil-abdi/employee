@@ -4,25 +4,23 @@ import { PrismaClient } from "../generated/prisma/client";
 import { CreateContractPayload } from "./types";
 
 export const createContractService = (prisma: PrismaClient) => ({
-    async create(data: CreateContractPayload, id: string) {
+    async create(data: CreateContractPayload, employeeId: string) {
         const employee = await prisma.employee.findUnique({
-            where: { id: data.employeeId },
+            where: { id: employeeId },
         });
 
         if (!employee) {
-            throw new NotFoundException(`Employee with ID: ${data.employeeId} not found`)
+            throw new NotFoundException(`Employee with ID: ${employeeId} not found`);
         }
 
-        // 2. Business logic validation for contractType & endDate
         const isFullTime = data.contractType === 'FULL_TIME';
 
         if (!isFullTime && !data.endDate) {
-            throw new ValidationException(`Contract type "${data.contractType}" requires an end date.`)
+            throw new ValidationException(`Contract type "${data.contractType}" requires an end date.`);
         }
 
         const endDate = isFullTime ? null : (data.endDate ? new Date(data.endDate) : null);
 
-        // 3. Database operation
         const contract = await prisma.contract.create({
             data: {
                 title: data.title,
@@ -51,12 +49,19 @@ export const createContractService = (prisma: PrismaClient) => ({
             success: true,
             data: contract
         };
-
-    
     },
 
-    async getAll() {
-        return prisma.contract.findMany({
+    async get(employeeId: string) {
+        const employee = await prisma.employee.findUnique({
+            where: { id: employeeId },
+        });
+
+        if (!employee) {
+            throw new NotFoundException(`Employee with ID: ${employeeId} not found`);
+        }
+
+        const contracts = await prisma.contract.findMany({
+            where: { employeeId },
             select: {
                 id: true,
                 title: true,
@@ -65,16 +70,33 @@ export const createContractService = (prisma: PrismaClient) => ({
                 endDate: true,
                 salary: true,
                 weeklyHours: true,
-                employee: {
-                    select: {
-                        id: true,
-                    },
-                },
+                employeeId: true
             },
         })
+
+        return {
+            success: true,
+            data: contracts
+        }
+    },
+
+    async getById(employeeId: string, contractId: string) {
+        const contract = await prisma.contract.findUnique({
+            where: { 
+                id: contractId,
+                employeeId: employeeId
+            },
+        });
+
+        if (!contract) {
+            throw new NotFoundException(`Contract with ID ${contractId} not found for Employee ${employeeId}`);
+        }
+
+        return {
+            data: contract
+        }
     }
+    
 })
-
-
 
 export type ContractService = ReturnType<typeof createContractService>
