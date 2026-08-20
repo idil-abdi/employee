@@ -70,8 +70,6 @@ export const createEmployeeService = (prisma: PrismaClient) => ({
             where: { id },
             data: { 
                 ...data, 
-                
-                // Convert date strings to Date objects if they exist in the payload
                 ...(data.dateOfBirth && { dateOfBirth: new Date(data.dateOfBirth) }),
                 ...(data.hireDate && { hireDate: new Date(data.hireDate) }),
             }

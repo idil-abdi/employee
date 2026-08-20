@@ -1,5 +1,5 @@
 import { ServerRoute } from "@hapi/hapi";
-import { createContractHandler, getAllContractsHandler, getContractByIdHandler } from "./handler";
+import { createContractHandler, deleteContractByIdHandler, getAllContractsHandler, getContractByIdHandler, updateContractByIdHandler } from "./handler";
 
 export const contractRoutes: ServerRoute[] = [
     {
@@ -16,5 +16,15 @@ export const contractRoutes: ServerRoute[] = [
         method: 'GET',
         path: '/employee/{employeeId}/contracts/{contractId}',
         handler: getContractByIdHandler,
+    },
+    {
+        method: 'PUT',
+        path: '/employee/{employeeId}/contracts/{contractId}',
+        handler: updateContractByIdHandler,
+    },
+    {
+        method: 'DELETE',
+        path: '/employee/{employeeId}/contracts/{contractId}',
+        handler: deleteContractByIdHandler,
     },
 ]

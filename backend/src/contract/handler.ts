@@ -42,3 +42,33 @@ export const getContractByIdHandler = async (
     const getContractById = await contractService.getById(String(employeeId), String(contractId))
     return h.response(getContractById).code(200)
 }
+
+export const updateContractByIdHandler = async (
+    request: Request,
+    h: ResponseToolkit,
+): Promise<ResponseObject> => {
+    const { employeeId, contractId } = request.params;
+    const { contractService } = request.server.app;
+    const data = request.payload as CreateContractPayload
+
+    const update = await contractService.update(String(employeeId), String(contractId), data)
+    return h.response({
+        id: update.data.id,
+        message: 'Contract has been successfully updated'
+    }).code(200)
+}
+
+export const deleteContractByIdHandler = async (
+    request: Request,
+    h: ResponseToolkit,
+): Promise<ResponseObject> => {
+    const { employeeId, contractId } = request.params;
+    const { contractService } = request.server.app;
+
+    const deleted = await contractService.delete(String(employeeId), String(contractId));
+
+    return h.response({
+        id: deleted.data.id,
+        message: 'Contract has been successfully deleted'
+    })
+}

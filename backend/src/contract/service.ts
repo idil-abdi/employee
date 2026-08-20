@@ -95,6 +95,61 @@ export const createContractService = (prisma: PrismaClient) => ({
         return {
             data: contract
         }
+    },
+
+    async update(employeeId: string, contractId: string, data: CreateContractPayload) {
+        const exitingContract = await prisma.contract.findFirst({
+            where: { 
+                id: contractId,
+                employeeId: employeeId
+            },
+        });
+
+        if (!exitingContract) {
+            throw new NotFoundException(`Contract with ID ${contractId} not found for Employee ${employeeId}`);
+        }
+
+        const updatedContract = await prisma.contract.update({
+            where: {
+                id: contractId,
+            },
+            data: {
+                contractType: data.contractType,
+                title: data.title,
+                salary: Number(data.salary),
+                startDate: data.startDate ? new Date(data.startDate) : undefined,
+                endDate: data.endDate ? new Date(data.endDate) : undefined,
+                weeklyHours: Number(data.weeklyHours),
+            },
+        })
+
+        return {
+            data: updatedContract,
+        }
+    },
+
+    async delete(employeeId: string, contractId: string) {
+        const exitingContract = await prisma.contract.findFirst({
+            where: { 
+                id: contractId,
+                employeeId: employeeId
+            },
+        });
+
+        if (!exitingContract) {
+            throw new NotFoundException(`Contract with ID ${contractId} not found for Employee ${employeeId}`);
+        }
+
+        const deletedContract = await prisma.contract.delete({
+            where: {
+                id: contractId,
+                employeeId: employeeId
+            },
+        })
+
+        return {
+            data: deletedContract,
+        }
     }
     
 })
