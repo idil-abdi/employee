@@ -3,11 +3,13 @@ import { Server } from "@hapi/hapi";
 import { PrismaClient } from "../generated/prisma/client"
 import { PrismaPg } from "@prisma/adapter-pg";
 import { EmployeeService } from "../employee/service";
+import { ContractService } from '../contract/service';
 
 declare module '@hapi/hapi' {
     interface ServerApplicationState {
         prisma: PrismaClient;
         employeeService: EmployeeService;
+        contractService: ContractService
     }
 }
 

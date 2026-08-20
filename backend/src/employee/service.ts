@@ -1,5 +1,5 @@
 import { CreateEmployeePayload } from './types';
-import { Employee, PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "../generated/prisma/client";
 import { ConflictException } from '../exception/ConflictException';
 import { NotFoundException } from '../exception/NotFoundException';
 
@@ -22,12 +22,19 @@ export const createEmployeeService = (prisma: PrismaClient) => ({
     },
 
     async get() {
-        return prisma.employee.findMany()
+        return prisma.employee.findMany({
+            include: {
+                contracts:true
+            }
+        })
     },
 
     async getById(id: string) {
         const employee = await prisma.employee.findUnique({
-            where: { id }
+            where: { id },
+            include: {
+                contracts: true,
+            }
         })
 
         if (!employee) {

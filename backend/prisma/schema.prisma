@@ -31,9 +31,11 @@ model Employee {
 
 model Contract {
   id           String       @id @default(uuid())
+  title        String?
   contractType ContractType // part time, fullt ime or contract
   startDate    DateTime
-  endData      DateTime?
+  endDate      DateTime?
+  salary       Float?
   weeklyHours  Int
   employeeId   String
   employee     Employee     @relation(fields: [employeeId], references: [id])
