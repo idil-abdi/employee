@@ -63,12 +63,15 @@ The frontend is responsible for:
 
 # 📡 API Documentation
 
-| Method | Endpoint                 | Purpose            | Completed
-| ------ | ------------------------ | ----------------   | ---------
-| GET    | `/employee`              | Get All employee   |     
-| GET    | `/employee/:id`          | Get employee by id |     
-| POST   | `/employee`              | Create employee    |     
-| POST   | `/contract`              | Create contract    |     
-| PUT    | `/employee/:id`          | Update employee    |     
-| DELETE | `/employee/:id`          | Delete employee    |     
-| DELETE | `/contract/:id`          | Delete contract    |     
+| Method | Endpoint                                          | Purpose                               |
+| ------ | -----------------------------------------------   | ----------------                      |
+| GET    | `/employee`                                       | Get All employees                     |     
+| GET    | `/employee/{id}`                                  | Get employee by id                    |     
+| GET    | `/employee/{employeeId}/contracts`                | Get All employee's contracts          |     
+| GET    | `/employee/{employeeId}/contracts/{contractId}`   | Get one of employee's contract by Id  |     
+| POST   | `/employee`                                       | Create employee                       |     
+| POST   | `employee/{employeeId}/contracts`                 | Create contract for an employee       |     
+| PUT    | `/employee/{id}`                                  | Update employee                       |     
+| PUT    | `/employee/{employeeId}/contracts/{contractId}`   | Update one of employee's contract     |     
+| DELETE | `/employee/:id`                                   | Delete employee                       |     
+| DELETE | `/employee/{employeeId}/contracts/{contractId}`   | Delete contract                       |     
