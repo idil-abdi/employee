@@ -14,9 +14,19 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const navItems = ["Home", "Employee"];
+  const navItems = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "Employee",
+      link: "/employee",
+    },
+  ];
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -57,9 +67,9 @@ function Navbar() {
           </Typography>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
+            {navItems.map((item, i) => (
+              <Button key={i} sx={{ color: "#fff" }}>
+                <Link to={item.link}>{item.name}</Link>
               </Button>
             ))}
           </Box>
@@ -89,10 +99,14 @@ function Navbar() {
             </Typography>
             <Divider />
             <List>
-              {navItems.map((item) => (
-                <ListItem key={item} disablePadding>
-                  <ListItemButton sx={{ textAlign: "center" }}>
-                    <ListItemText primary={item} />
+              {navItems.map((item, i) => (
+                <ListItem key={i} disablePadding>
+                  <ListItemButton
+                    sx={{ display: "flex", justifyContent: "center" }}
+                  >
+                    <Link to={item.link}>
+                      <ListItemText primary={item.name} />
+                    </Link>
                   </ListItemButton>
                 </ListItem>
               ))}
