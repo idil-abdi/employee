@@ -1,13 +1,8 @@
 import { Box, Toolbar } from "@mui/material";
 import "../App.css";
 import Navbar from "../componants/Navbar";
-// import { useState } from "react";
 
 function App() {
-  // const [loading, setLoading] = useState<boolean>(true)
-
-  // if (loading) return <p>Loading...</p>
-
   return (
     <>
       <Navbar />
