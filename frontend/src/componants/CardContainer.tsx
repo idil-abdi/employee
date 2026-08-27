@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import Cards from "./Cards";
-import { cards } from "../data/EmployeeCard";
 
 function CardContainer() {
   return (
@@ -14,7 +13,7 @@ function CardContainer() {
           gap: 2,
         }}
       >
-        <Cards cards={cards} />
+        <Cards />
       </Box>
     </>
   );

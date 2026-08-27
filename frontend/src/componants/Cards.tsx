@@ -1,12 +1,21 @@
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { useEmployees } from "../hooks/useEmployee";
 import { useState } from "react";
+import type { Employee } from "../types/Employee";
 import CardModal from "./CardModal";
-import type { CardListProps, EmployeeCard } from "../interfaces";
 
-function Cards({ cards }: CardListProps) {
-  const [selectedCard, setSelectedCard] = useState<EmployeeCard | null>(null);
+function Cards() {
+  const [selectedCard, setSelectedCard] = useState<Employee | null>(null);
+  const { data, isLoading, isError, error } = useEmployees();
 
-  const handleOpen = (card: EmployeeCard) => {
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  const handleOpen = (card: Employee) => {
     setSelectedCard(card);
   };
 
@@ -17,7 +26,7 @@ function Cards({ cards }: CardListProps) {
   return (
     <>
       {/* 3. Render Cards */}
-      {cards.map((card) => {
+      {data?.map((card) => {
         const isSelected = selectedCard?.id === card.id;
 
         return (
@@ -40,9 +49,6 @@ function Cards({ cards }: CardListProps) {
                   {card.firstName} {card.lastName}
                 </Typography>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {card.contract}
-                </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   {card.email}
                 </Typography>
               </CardContent>
@@ -57,26 +63,6 @@ function Cards({ cards }: CardListProps) {
         open={Boolean(selectedCard)}
         onClose={handleClose}
       />
-      {/* <Dialog open={Boolean(selectedCard)} onClose={handleClose}>
-        {selectedCard && (
-          <>
-            <DialogTitle>
-              {selectedCard.firstName} {selectedCard.lastName}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText sx={{ mb: 1 }}>
-                <strong>Contract:</strong> {selectedCard.contract}
-              </DialogContentText>
-              <DialogContentText>
-                <strong>Email:</strong> {selectedCard.email}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Close</Button>
-            </DialogActions>
-          </>
-        )}
-      </Dialog> */}
     </>
   );
 }

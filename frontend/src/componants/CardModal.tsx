@@ -8,10 +8,10 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import type { CardDialogProps } from "../interfaces";
 import { styled } from "@mui/material/styles";
 import { Fragment } from "react/jsx-runtime";
 import CloseIcon from "@mui/icons-material/Close";
+import type { EmployeeCardProps } from "../types/Employee";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -22,7 +22,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-function CardModal({ card, open, onClose }: CardDialogProps) {
+function CardModal({ card, open, onClose }: EmployeeCardProps) {
   if (!card) return null;
 
   return (
@@ -49,9 +49,9 @@ function CardModal({ card, open, onClose }: CardDialogProps) {
         </IconButton>
 
         <DialogContent dividers>
-          <DialogContentText sx={{ mb: 1 }}>
+          {/* <DialogContentText sx={{ mb: 1 }}>
             <strong>Contract Type:</strong> {card.contract}
-          </DialogContentText>
+          </DialogContentText> */}
           <DialogContentText sx={{ mb: 1 }}>
             <strong>Email:</strong> {card.email}
           </DialogContentText>

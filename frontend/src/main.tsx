@@ -4,6 +4,9 @@ import App from "./pages/App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Employee from "./pages/Employee.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -13,6 +16,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>,
 );
