@@ -1,6 +1,7 @@
 import { Box, Button, Toolbar } from "@mui/material";
 import Navbar from "../componants/Navbar";
 import CardContainer from "../componants/CardContainer";
+import { Link } from "react-router-dom";
 
 function Employee() {
   return (
@@ -17,7 +18,9 @@ function Employee() {
           }}
         >
           <h1>Employee Page</h1>
-          <Button variant="contained">Add Employee</Button>
+          <Button variant="contained">
+            <Link to={"/employee-form"}>Add Employee</Link>
+          </Button>
         </Box>
         <CardContainer />
       </Box>
