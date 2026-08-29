@@ -50,3 +50,8 @@ export interface EmployeeFormProps {
   employeeId?: string;
   onSuccess?: () => void;
 }
+
+export interface DeleteResponse {
+  success: boolean;
+  message: string;
+}

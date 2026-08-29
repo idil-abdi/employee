@@ -1,18 +1,18 @@
 import { Box, Toolbar } from "@mui/material";
 import Navbar from "../componants/Navbar";
-// import Form from "../componants/Form";
-// import { useNavigate, useParams } from "react-router-dom";
+import EditForm from "../componants/EditForm";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditEmployeePage() {
-  // const { employeeId } = useParams<{ employeeId: string }>();
+  const { employeeId } = useParams<{ employeeId: string }>();
 
-  // console.log(employeeId);
+  console.log(employeeId);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const handleSuccess = () => {
-  //   navigate("/employee");
-  // };
+  const handleSuccess = () => {
+    navigate("/employee");
+  };
   return (
     <>
       <Navbar />
@@ -25,11 +25,11 @@ function EditEmployeePage() {
         >
           <h1>Edit Employee</h1>
           <Box sx={{ py: 3 }}>
-            {/* <Form
-              key={employeeId ?? "create"}
+            <EditForm
+              key={employeeId}
               employeeId={employeeId}
               onSuccess={handleSuccess}
-            /> */}
+            />
           </Box>
         </Box>
       </Box>

@@ -1,5 +1,5 @@
 import api from "../api/axios";
-import type { CreateEmployeeDto, Employee, UpdateEmployeeDto } from "../types/Employee";
+import type { CreateEmployeeDto, DeleteResponse, Employee, UpdateEmployeeDto } from "../types/Employee";
 
 export const getEmployees = async (): Promise<Employee[]> => {
     const response = await api.get<Employee[]>("/employee");
@@ -22,6 +22,7 @@ export const updateEmployee = async (id: string, employee: UpdateEmployeeDto): P
     return response.data;
 };
 
-export const deleteEmployee = async (id: string): Promise<void> => {
-    await api.delete<Employee>(`/employee/${id}`);
+export const deleteEmployee = async (id: string): Promise<DeleteResponse> => {
+    const response = await api.delete<DeleteResponse>(`/employee/${id}`);
+    return response.data;
 };

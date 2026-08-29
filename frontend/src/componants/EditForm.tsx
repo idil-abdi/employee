@@ -1,23 +1,15 @@
 import { Box, Button, CircularProgress, TextField } from "@mui/material";
-import { useCreateEmployee } from "../hooks/useCreateEmployee";
-import { useState } from "react";
 import {
-  type CreateEmployeeDto,
   type EmployeeFormProps,
+  type UpdateEmployeeDto,
 } from "../types/Employee";
 import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
 import { useGetEmployee } from "../hooks/useGetEmployee";
+import { useState } from "react";
 
 function Form({ employeeId, onSuccess }: EmployeeFormProps) {
-  const isEditMode = Boolean(employeeId);
   const { data: employeeData, isLoading: isFetching } =
     useGetEmployee(employeeId);
-
-  const {
-    mutate: createEmployee,
-    isPending: isCreating,
-    error: createError,
-  } = useCreateEmployee();
 
   const {
     mutate: updateEmployee,
@@ -25,7 +17,7 @@ function Form({ employeeId, onSuccess }: EmployeeFormProps) {
     error: updateError,
   } = useUpdateEmployee();
 
-  const [formData, setFormData] = useState<CreateEmployeeDto>(() => ({
+  const [formData, setFormData] = useState<UpdateEmployeeDto>(() => ({
     firstName: employeeData?.firstName ?? "",
     lastName: employeeData?.lastName ?? "",
     address: employeeData?.address ?? "",
@@ -53,25 +45,18 @@ function Form({ employeeId, onSuccess }: EmployeeFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isEditMode && employeeId) {
+    if (employeeId) {
       updateEmployee(
         { id: employeeId, data: formData },
         { onSuccess: () => onSuccess?.() },
       );
-    } else {
-      createEmployee(formData, {
-        onSuccess: () => onSuccess?.(),
-      });
     }
   };
 
   // Only show loader if fetching data during edit mode
-  if (isFetching && isEditMode) {
+  if (isFetching) {
     return <CircularProgress />;
   }
-
-  const isPending = isCreating || isUpdating;
-  const error = createError || updateError;
 
   return (
     <Box
@@ -167,23 +152,19 @@ function Form({ employeeId, onSuccess }: EmployeeFormProps) {
         />
       </Box>
 
-      {error && (
+      {updateError && (
         <Box sx={{ gridColumn: { sm: "span 2" }, color: "error.main" }}>
-          {(error as Error).message || "Something went wrong"}
+          {(updateError as Error).message || "Something went wrong"}
         </Box>
       )}
 
       <Button
         type="submit"
         variant="contained"
-        disabled={isPending}
+        disabled={isUpdating}
         sx={{ gridColumn: { sm: "span 2" } }}
       >
-        {isPending
-          ? "Saving..."
-          : isEditMode
-            ? "Update Employee"
-            : "Create Employee"}
+        {isUpdating ? "Saving..." : "Update Employee"}
       </Button>
     </Box>
   );
