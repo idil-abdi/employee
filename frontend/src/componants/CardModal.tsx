@@ -12,6 +12,7 @@ import { styled } from "@mui/material/styles";
 import { Fragment } from "react/jsx-runtime";
 import CloseIcon from "@mui/icons-material/Close";
 import type { EmployeeCardProps } from "../types/Employee";
+import { useNavigate } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -23,7 +24,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 function CardModal({ card, open, onClose }: EmployeeCardProps) {
+  const navigate = useNavigate();
+
   if (!card) return null;
+
+  const handleEdit = () => {
+    onClose();
+    navigate(`/employee/${card.id}`);
+  };
 
   return (
     <Fragment>
@@ -49,9 +57,6 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
         </IconButton>
 
         <DialogContent dividers>
-          {/* <DialogContentText sx={{ mb: 1 }}>
-            <strong>Contract Type:</strong> {card.contract}
-          </DialogContentText> */}
           <DialogContentText sx={{ mb: 1 }}>
             <strong>Email:</strong> {card.email}
           </DialogContentText>
@@ -67,10 +72,10 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={onClose}>
+          <Button autoFocus onClick={handleEdit} color="primary">
             EDIT
           </Button>
-          <Button autoFocus onClick={onClose}>
+          <Button autoFocus onClick={onClose} color="error">
             DELETE
           </Button>
         </DialogActions>

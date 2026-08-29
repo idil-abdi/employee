@@ -17,9 +17,9 @@ This project is a full-stack employee & contract management application that hel
 TypeScript      |     React
 Hapi.js         |     Vite
 Node.js         |     TypeScript
-Prisma          |     CSS / Tailwind
-PostgreSQL      |
-Joi             |
+Prisma          |     CSS / Tailwind / Material UI
+PostgreSQL      |     Axios
+Joi             |     TanStack Query (React Query)
 ```
 
 ---

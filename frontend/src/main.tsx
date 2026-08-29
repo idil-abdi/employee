@@ -6,6 +6,7 @@ import Employee from "./pages/Employee.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import EmployeeForm from "./pages/EmployeeForm.tsx";
+import EditEmployeePage from "./pages/EditEmployeePage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/employee", element: <Employee /> },
   { path: "/employee-form", element: <EmployeeForm /> },
+  { path: "/employee/:employeeId", element: <EditEmployeePage /> },
   { path: "*", element: <NotFoundPage /> },
 ]);
 

@@ -1,6 +1,6 @@
 import { Box, Toolbar } from "@mui/material";
 import Navbar from "../componants/Navbar";
-import Form from "../componants/Form";
+import CreateForm from "../componants/CreateForm";
 
 function EmployeeForm() {
   return (
@@ -15,7 +15,7 @@ function EmployeeForm() {
         >
           <h1>Create an Employee</h1>
           <Box sx={{ py: 3 }}>
-            <Form />
+            <CreateForm />
           </Box>
         </Box>
       </Box>

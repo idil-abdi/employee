@@ -2,6 +2,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { useCreateEmployee } from "../hooks/useCreateEmployee";
 import { useState } from "react";
 import { type CreateEmployeeDto } from "../types/Employee";
+import { useNavigate } from "react-router-dom";
 
 function Form() {
   const {
@@ -10,7 +11,9 @@ function Form() {
     isError,
     error,
   } = useCreateEmployee();
-  // Local state for the form inputs
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<CreateEmployeeDto>({
     firstName: "",
     lastName: "",
@@ -31,6 +34,7 @@ function Form() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createEmployee(formData);
+    navigate("/employee");
   };
 
   return (
