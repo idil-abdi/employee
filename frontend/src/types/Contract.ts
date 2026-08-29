@@ -1,9 +1,15 @@
 export interface Contract {
-    contractType: string, // part time, fullt ime or contract
-    title: string,
-    salary:number
-    startDate: string | Date,
-    endDate?: string | Date,
-    weeklyHours: number,
-    employeeId: string,
+  id: string;
+  title: string;
+  contractType: string;
+  startDate: string;
+  endDate: string;
+  salary: number;
+  weeklyHours: number;
+  employeeId: string;
+}
+
+export interface ContractsResponse {
+  success: boolean;
+  data: Contract[];
 }

@@ -113,7 +113,7 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
               Add Contract
             </Button>
           </DialogContentText>
-          <ContractList />
+          <ContractList employeeId={card.id} />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleEdit} color="primary">
