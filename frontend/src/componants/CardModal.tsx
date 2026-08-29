@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useDeleteEmployee } from "../hooks/useDeleteEmployee";
 import { useState } from "react";
 import DeleteWarning from "./DeleteWarning";
+import ContractList from "./ContractList";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -78,18 +79,18 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
 
         <DialogContent dividers>
           <DialogContentText sx={{ mb: 1 }}>
-            <strong>Address:</strong> {card.address}
-          </DialogContentText>
-          <DialogContentText sx={{ mb: 1 }}>
-            <strong>DOB:</strong> {ConvertDate()}
-          </DialogContentText>
-        </DialogContent>
-        <DialogContent dividers>
-          <DialogContentText sx={{ mb: 1 }}>
             <strong>Email:</strong> {card.email}
           </DialogContentText>
           <DialogContentText sx={{ mb: 1 }}>
             <strong>Mobile:</strong> {card.mobileNumber}
+          </DialogContentText>
+        </DialogContent>
+        <DialogContent dividers>
+          <DialogContentText sx={{ mb: 1 }}>
+            <strong>Address:</strong> {card.address}
+          </DialogContentText>
+          <DialogContentText sx={{ mb: 1 }}>
+            <strong>DOB:</strong> {ConvertDate()}
           </DialogContentText>
         </DialogContent>
         <DialogContent dividers>
@@ -99,9 +100,20 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
           <Typography gutterBottom>{card.description}</Typography>
         </DialogContent>
         <DialogContent dividers>
-          <DialogContentText sx={{ mb: 1 }}>
+          <DialogContentText
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: 1,
+            }}
+          >
             <strong>Contracts History:</strong>
+            <Button size="small" variant="contained">
+              Add Contract
+            </Button>
           </DialogContentText>
+          <ContractList />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleEdit} color="primary">

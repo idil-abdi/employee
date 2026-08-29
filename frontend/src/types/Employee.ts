@@ -1,3 +1,5 @@
+import type { Contract } from "./Contract";
+
 export interface Employee {
     id: string,
     firstName: string,
@@ -9,6 +11,7 @@ export interface Employee {
     hireDate:string | Date,
     department: string,
     description: string
+    contract?: Contract[]
 }
 
 export interface CreateEmployeeDto {
