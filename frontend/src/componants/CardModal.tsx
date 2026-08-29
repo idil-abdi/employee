@@ -14,6 +14,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import type { EmployeeCardProps } from "../types/Employee";
 import { useNavigate } from "react-router-dom";
 import { useDeleteEmployee } from "../hooks/useDeleteEmployee";
+import { useState } from "react";
+import DeleteWarning from "./DeleteWarning";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -26,6 +28,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 function CardModal({ card, open, onClose }: EmployeeCardProps) {
   const navigate = useNavigate();
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const { mutate: deleteEmployee, isPending } = useDeleteEmployee();
 
@@ -36,18 +39,17 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
     navigate(`/employee/${card.id}`);
   };
 
-  const handleDelete = () => {
+  const handleConfirmDelete = () => {
     deleteEmployee(card.id.toString(), {
       onSuccess: () => {
+        setIsConfirmOpen(false);
         onClose();
       },
     });
   };
 
   const ConvertDate = () => {
-    console.log(card.dateOfBirth);
-    const convert = String(card.dateOfBirth);
-    return convert;
+    return String(card.dateOfBirth).split("T")[0];
   };
 
   return (
@@ -105,11 +107,24 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
           <Button autoFocus onClick={handleEdit} color="primary">
             EDIT
           </Button>
-          <Button onClick={handleDelete} color="error" disabled={isPending}>
+          <Button
+            onClick={() => setIsConfirmOpen(true)}
+            color="error"
+            disabled={isPending}
+          >
             {isPending ? "DELETING..." : "DELETE"}
           </Button>
         </DialogActions>
       </BootstrapDialog>
+
+      <DeleteWarning
+        open={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="Delete Employee"
+        description={`Are you sure you want to delete ${card.firstName} ${card.lastName}? This action cannot be undone.`}
+        isLoading={isPending}
+      />
     </Fragment>
   );
 }

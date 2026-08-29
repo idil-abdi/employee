@@ -55,3 +55,12 @@ export interface DeleteResponse {
   success: boolean;
   message: string;
 }
+
+export interface DeleteWarningDialogProps {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title?: string;
+  description?: string;
+  isLoading?: boolean;
+}

@@ -25,7 +25,6 @@ function Cards() {
 
   return (
     <>
-      {/* 3. Render Cards */}
       {data?.map((card) => {
         const isSelected = selectedCard?.id === card.id;
 
