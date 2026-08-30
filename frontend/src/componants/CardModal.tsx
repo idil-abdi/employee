@@ -40,6 +40,10 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
     navigate(`/employee/${card.id}`);
   };
 
+  const handleOpenContract = (employeeId: string) => {
+    navigate(`/employee/${employeeId}/contract`);
+  };
+
   const handleConfirmDelete = () => {
     deleteEmployee(card.id.toString(), {
       onSuccess: () => {
@@ -109,7 +113,11 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
             }}
           >
             <strong>Contracts History:</strong>
-            <Button size="small" variant="contained">
+            <Button
+              size="small"
+              variant="contained"
+              onClick={() => handleOpenContract(card.id)}
+            >
               Add Contract
             </Button>
           </DialogContentText>

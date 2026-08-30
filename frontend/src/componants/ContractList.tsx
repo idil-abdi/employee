@@ -23,7 +23,14 @@ function ContractList({ employeeId }: Props) {
   return (
     <>
       {data && data.data.length > 0 ? (
-        <List sx={{ width: "100%", bgcolor: "background.paper", border: 1 }}>
+        <List
+          sx={{
+            width: "100%",
+            bgcolor: "background.paper",
+            border: 1,
+            borderColor: "grey.400",
+          }}
+        >
           {data.data.map((contract) => (
             <ListItem key={contract.id} alignItems="flex-start" divider>
               <ListItemText

@@ -1,12 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./pages/App.tsx";
+import App from "./pages/App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Employee from "./pages/Employee.tsx";
-import NotFoundPage from "./pages/NotFoundPage.tsx";
+import Employee from "./pages/Employee";
+import NotFoundPage from "./pages/NotFoundPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import EmployeeForm from "./pages/EmployeeForm.tsx";
-import EditEmployeePage from "./pages/EditEmployeePage.tsx";
+import EmployeeForm from "./pages/EmployeeForm";
+import EditEmployeePage from "./pages/EditEmployeePage";
+import ContractFormPage from "./pages/ContractFormPage";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
   { path: "/employee", element: <Employee /> },
   { path: "/employee-form", element: <EmployeeForm /> },
   { path: "/employee/:employeeId", element: <EditEmployeePage /> },
+  { path: "/employee/:employeeId/contract", element: <ContractFormPage /> },
   { path: "*", element: <NotFoundPage /> },
 ]);
 
