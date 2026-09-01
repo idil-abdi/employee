@@ -43,7 +43,6 @@ function ContractForm() {
     title: "",
     contractType: "",
     startDate: "",
-    endDate: "",
     salary: 0,
     weeklyHours: 40,
   });

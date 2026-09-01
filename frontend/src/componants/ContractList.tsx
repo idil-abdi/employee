@@ -8,14 +8,34 @@ import {
   Typography,
 } from "@mui/material";
 import { useGetEmployeeContracts } from "../hooks/useGetEmployeeContracts";
-
+import DeleteWarning from "./DeleteWarning";
+import { useState } from "react";
+import { useDeleteEmployeeContract } from "../hooks/useDeleteEmployeeContract";
 interface Props {
   employeeId: string;
 }
 
 function ContractList({ employeeId }: Props) {
+  const [selectedContractId, setSelectedContractId] = useState<string | null>(
+    null,
+  );
+
+  const { mutate: deleteContract, isPending } = useDeleteEmployeeContract();
   const { data, isLoading, isError, error } =
     useGetEmployeeContracts(employeeId);
+
+  const handleConfirmDelete = () => {
+    if (!selectedContractId) return;
+
+    deleteContract(
+      { employeeId, contractId: selectedContractId },
+      {
+        onSuccess: () => {
+          setSelectedContractId(null);
+        },
+      },
+    );
+  };
 
   if (isLoading) return <div>Loading contracts...</div>;
   if (isError)
@@ -56,7 +76,11 @@ function ContractList({ employeeId }: Props) {
                         <IconButton size="small" color="primary">
                           <Edit fontSize="small" />
                         </IconButton>
-                        <IconButton size="small" color="error">
+                        <IconButton
+                          size="small"
+                          color="error"
+                          onClick={() => setSelectedContractId(contract.id)}
+                        >
                           <Delete fontSize="small" />
                         </IconButton>
                       </Box>
@@ -118,6 +142,14 @@ function ContractList({ employeeId }: Props) {
           No Contract found
         </Typography>
       )}
+      <DeleteWarning
+        open={Boolean(selectedContractId)}
+        onClose={() => setSelectedContractId(null)}
+        onConfirm={handleConfirmDelete}
+        title="Delete Employee's contract"
+        description={`Are you sure you want to delete this contract. This action cannot be undone.`}
+        isLoading={isPending}
+      />
     </>
   );
 }

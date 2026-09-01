@@ -18,7 +18,12 @@ export interface CreateEmployeeContractDto {
   title: string;
   contractType: string;
   startDate: string;
-  endDate?: string;
+  endDate?: string | null;
   salary: number;
   weeklyHours: number;
+}
+
+export interface DeleteContractResponse {
+  success: boolean;
+  message: string;
 }
