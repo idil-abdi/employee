@@ -5,7 +5,7 @@ export type CreateContractPayload = {
     title: string,
     salary:number
     startDate: string | Date,
-    endDate: string | Date,
+    endDate?: string | Date,
     weeklyHours: number,
     employeeId: string,
 }

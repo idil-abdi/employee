@@ -5,6 +5,6 @@ export const createContractSchema = Joi.object({
     title: Joi.string().trim().required(),
     salary: Joi.number().required(),
     startDate: Joi.string().isoDate().required(),
-    endDate: Joi.string().isoDate().required(),
+    endDate: Joi.string().isoDate(),
     weeklyHours: Joi.number().required(),
 });
