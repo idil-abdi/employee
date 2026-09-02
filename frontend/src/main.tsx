@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import EmployeeForm from "./pages/EmployeeForm";
 import EditEmployeePage from "./pages/EditEmployeePage";
 import ContractFormPage from "./pages/ContractFormPage";
+import EditContractPage from "./pages/EditContractPage";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
   { path: "/employee", element: <Employee /> },
   { path: "/employee-form", element: <EmployeeForm /> },
   { path: "/employee/:employeeId", element: <EditEmployeePage /> },
-  { path: "/employee/:employeeId/contract", element: <ContractFormPage /> },
+  { path: "/employee/:employeeId/contracts", element: <ContractFormPage /> },
+  {
+    path: "/employee/:employeeId/contracts/:contractId",
+    element: <EditContractPage />,
+  },
   { path: "*", element: <NotFoundPage /> },
 ]);
 

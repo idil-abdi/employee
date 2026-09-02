@@ -27,3 +27,18 @@ export interface DeleteContractResponse {
   success: boolean;
   message: string;
 }
+
+export interface UpdateContractDto {
+    title?: string;
+  contractType?: string;
+  startDate?: string;
+  endDate?: string | null;
+  salary?: number;
+  weeklyHours?: number;
+}
+
+export interface EditContractFormProps {
+  employeeId: string;
+  contractId: string;
+  onSuccessClose?: () => void;
+}

@@ -11,11 +11,13 @@ import { useGetEmployeeContracts } from "../hooks/useGetEmployeeContracts";
 import DeleteWarning from "./DeleteWarning";
 import { useState } from "react";
 import { useDeleteEmployeeContract } from "../hooks/useDeleteEmployeeContract";
+import { useNavigate } from "react-router-dom";
 interface Props {
   employeeId: string;
 }
 
 function ContractList({ employeeId }: Props) {
+  const navigate = useNavigate();
   const [selectedContractId, setSelectedContractId] = useState<string | null>(
     null,
   );
@@ -24,6 +26,13 @@ function ContractList({ employeeId }: Props) {
   const { data, isLoading, isError, error } =
     useGetEmployeeContracts(employeeId);
 
+  const handleEdit = (contractId: string) => {
+    navigate(`/employee/${employeeId}/contracts/${contractId}`);
+    console.log(
+      `Contract edit btn clicked  /employee/${employeeId}/contracts/${contractId}`,
+    );
+  };
+
   const handleConfirmDelete = () => {
     if (!selectedContractId) return;
 
@@ -31,7 +40,11 @@ function ContractList({ employeeId }: Props) {
       { employeeId, contractId: selectedContractId },
       {
         onSuccess: () => {
-          setSelectedContractId(null);
+          setSelectedContractId(null); // Closes the dialog cleanly
+          navigate("/employee"); // Navigates back to employee page
+        },
+        onError: (err) => {
+          console.error("Delete failed:", err);
         },
       },
     );
@@ -73,7 +86,11 @@ function ContractList({ employeeId }: Props) {
                         {contract.title}
                       </Typography>
                       <Box sx={{ display: "flex", gap: 1 }}>
-                        <IconButton size="small" color="primary">
+                        <IconButton
+                          onClick={() => handleEdit(contract.id)}
+                          size="small"
+                          color="primary"
+                        >
                           <Edit fontSize="small" />
                         </IconButton>
                         <IconButton

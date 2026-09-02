@@ -4,7 +4,7 @@ import { useState } from "react";
 import { type CreateEmployeeDto } from "../types/Employee";
 import { useNavigate } from "react-router-dom";
 
-function Form() {
+function CreateForm() {
   const {
     mutate: createEmployee,
     isPending,
@@ -144,4 +144,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default CreateForm;

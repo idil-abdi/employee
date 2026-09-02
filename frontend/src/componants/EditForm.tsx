@@ -7,7 +7,7 @@ import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
 import { useGetEmployee } from "../hooks/useGetEmployee";
 import { useState } from "react";
 
-function Form({ employeeId, onSuccess }: EmployeeFormProps) {
+function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
   const { data: employeeData, isLoading: isFetching } =
     useGetEmployee(employeeId);
 
@@ -53,7 +53,6 @@ function Form({ employeeId, onSuccess }: EmployeeFormProps) {
     }
   };
 
-  // Only show loader if fetching data during edit mode
   if (isFetching) {
     return <CircularProgress />;
   }
@@ -170,4 +169,4 @@ function Form({ employeeId, onSuccess }: EmployeeFormProps) {
   );
 }
 
-export default Form;
+export default EditForm;
