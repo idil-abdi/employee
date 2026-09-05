@@ -15,7 +15,7 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/employee", element: <Employee /> },
-  { path: "/employee-form", element: <EmployeeForm /> },
+  { path: "/employee/create", element: <EmployeeForm /> },
   { path: "/employee/:employeeId", element: <EditEmployeePage /> },
   { path: "/employee/:employeeId/contracts", element: <ContractFormPage /> },
   {

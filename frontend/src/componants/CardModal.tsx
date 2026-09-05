@@ -41,7 +41,7 @@ function CardModal({ card, open, onClose }: EmployeeCardProps) {
   };
 
   const handleOpenContract = (employeeId: string) => {
-    navigate(`/employee/${employeeId}/contract`);
+    navigate(`/employee/${employeeId}/contracts`);
   };
 
   const handleConfirmDelete = () => {

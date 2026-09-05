@@ -1,10 +1,11 @@
 import { Box, Button, Toolbar } from "@mui/material";
 import Navbar from "../componants/Navbar";
 import CardContainer from "../componants/CardContainer";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../componants/Footer";
 
 function Employee() {
+  const navigate = useNavigate();
   return (
     <>
       <Box
@@ -25,9 +26,12 @@ function Employee() {
               mb: 3,
             }}
           >
-            <h1>Employee Page</h1>
-            <Button variant="contained">
-              <Link to={"/employee-form"}>Add Employee</Link>
+            <h1 className="text-3xl text-blue-900">Our Employees</h1>
+            <Button
+              onClick={() => navigate(`/employee/create`)}
+              variant="contained"
+            >
+              Add Employee
             </Button>
           </Box>
           <CardContainer />

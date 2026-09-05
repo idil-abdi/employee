@@ -17,6 +17,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   const navItems = [
     {
       name: "Home",
@@ -27,7 +29,6 @@ function Navbar() {
       link: "/employee",
     },
   ];
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -45,7 +46,7 @@ function Navbar() {
               textAlign: "center",
             }}
           >
-            MUI
+            EmployeeHub
           </Typography>
 
           <IconButton
@@ -63,7 +64,7 @@ function Navbar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            EmployeeHub
           </Typography>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
@@ -95,7 +96,7 @@ function Navbar() {
         >
           <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-              MUI
+              EmployeeHub
             </Typography>
             <Divider />
             <List>

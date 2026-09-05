@@ -21,7 +21,9 @@ function EmployeeForm() {
               mb: 3,
             }}
           >
-            <h1>Create an Employee</h1>
+            <h1 className="text-3xl text-blue-900 text-center">
+              Create an Employee
+            </h1>
             <Box sx={{ py: 3 }}>
               <CreateForm />
             </Box>

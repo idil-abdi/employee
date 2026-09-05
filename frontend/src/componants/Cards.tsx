@@ -56,7 +56,6 @@ function Cards() {
         );
       })}
 
-      {/* 4. Single Dialog instance outside the map */}
       <CardModal
         card={selectedCard}
         open={Boolean(selectedCard)}
