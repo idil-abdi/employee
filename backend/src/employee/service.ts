@@ -17,7 +17,7 @@ export const createEmployeeService = (prisma: PrismaClient) => ({
             data: { 
                 ...data, 
                 dateOfBirth: new Date(data.dateOfBirth),
-                hireDate: new Date(data.hireDate) },
+                },
         });
     },
 
@@ -71,7 +71,7 @@ export const createEmployeeService = (prisma: PrismaClient) => ({
             data: { 
                 ...data, 
                 ...(data.dateOfBirth && { dateOfBirth: new Date(data.dateOfBirth) }),
-                ...(data.hireDate && { hireDate: new Date(data.hireDate) }),
+                
             }
         })
     },

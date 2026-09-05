@@ -5,7 +5,6 @@ export type CreateEmployeePayload = {
     mobileNumber: string,
     address: string,
     dateOfBirth:string | Date,
-    hireDate:string | Date,
     department: string,
     description: string
 }

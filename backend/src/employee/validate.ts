@@ -7,7 +7,6 @@ export const createEmploeeSchema = Joi.object({
     mobileNumber: Joi.string().trim().required(),
     address: Joi.string().trim().required(),
     dateOfBirth: Joi.string().isoDate().required(),
-    hireDate: Joi.string().isoDate().required(),
     department: Joi.string().trim().required(),
     description: Joi.string().trim().optional()
 });

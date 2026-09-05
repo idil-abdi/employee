@@ -22,7 +22,6 @@ model Employee {
   mobileNumber String
   address      String
   dateOfBirth  DateTime
-  hireDate     DateTime
   department   String
   contracts    Contract[]
 
