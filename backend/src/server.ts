@@ -8,6 +8,9 @@ const init = async () => {
     const server = Hapi.server({
         port: 3000,
         host: 'localhost',
+        debug: {
+    request: ["error"], // Logs detailed error stack traces to your terminal
+  },
         routes: {
             cors: {
                 origin: ['http://localhost:5173'],

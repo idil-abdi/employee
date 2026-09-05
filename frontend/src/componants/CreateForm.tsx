@@ -20,7 +20,6 @@ function CreateForm() {
     lastName: "",
     address: "",
     dateOfBirth: "",
-    hireDate: "",
     email: "",
     mobileNumber: "",
     department: "",
@@ -96,15 +95,6 @@ function CreateForm() {
         type="date"
         fullWidth
         value={formData.dateOfBirth}
-        onChange={handleChange}
-        slotProps={{ inputLabel: { shrink: true } }}
-      />
-      <TextField
-        label="Hire Date"
-        name="hireDate"
-        type="date"
-        fullWidth
-        value={formData.hireDate}
         onChange={handleChange}
         slotProps={{ inputLabel: { shrink: true } }}
       />

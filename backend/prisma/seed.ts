@@ -18,7 +18,6 @@ const main = async () => {
             mobileNumber: '+445234584411',
             address: '34 Gold Street San Francisco, CA 94121',
             dateOfBirth: new Date('1992-05-15'),
-            hireDate: new Date('2021-03-01'),
             department: 'Developer',
             description: 'Senior Software Developer specializing in backend development.'
         }
@@ -34,7 +33,6 @@ const main = async () => {
             mobileNumber: '+44551234567',
             address: '52 Silver Road, San Francisco, CA 94121',
             dateOfBirth: new Date('1999-11-15'),
-            hireDate: new Date('2020-07-18'),
             department: 'Human Resources',
         }
     })

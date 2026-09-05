@@ -16,7 +16,6 @@ export const employeeSchema = Joi.object<CreateEmployeeDto>({
         "string.email": "Please enter a valid email address.",
         }),
     dateOfBirth: Joi.string().allow("").optional(),
-    hireDate: Joi.string().allow("").optional(),
     mobileNumber: Joi.string()
     .trim()
     .pattern(/^\+44\d{9,10}$/)

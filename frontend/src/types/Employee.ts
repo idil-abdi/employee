@@ -8,7 +8,6 @@ export interface Employee {
     mobileNumber: string,
     address: string,
     dateOfBirth:string | Date,
-    hireDate:string | Date,
     department: string,
     description: string
     contract?: Contract[]
@@ -21,7 +20,6 @@ export interface CreateEmployeeDto {
     mobileNumber: string,
     address: string,
     dateOfBirth:string | Date,
-    hireDate:string | Date,
     department: string,
     description: string
 }
@@ -39,7 +37,6 @@ export interface UpdateEmployeeDto {
     mobileNumber?: string,
     address?: string,
     dateOfBirth?:string | Date,
-    hireDate?:string | Date,
     department?: string,
     description?: string
 }

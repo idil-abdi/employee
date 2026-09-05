@@ -22,7 +22,6 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
     lastName: employeeData?.lastName ?? "",
     address: employeeData?.address ?? "",
     dateOfBirth: employeeData?.dateOfBirth ?? "",
-    hireDate: employeeData?.hireDate ?? "",
     email: employeeData?.email ?? "",
     mobileNumber: employeeData?.mobileNumber ?? "",
     department: employeeData?.department ?? "",
@@ -91,15 +90,6 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
         type="date"
         fullWidth
         value={formatDateForInput(formData.dateOfBirth)}
-        onChange={handleChange}
-        slotProps={{ inputLabel: { shrink: true } }}
-      />
-      <TextField
-        label="Hire Date"
-        name="hireDate"
-        type="date"
-        fullWidth
-        value={formatDateForInput(formData.hireDate)}
         onChange={handleChange}
         slotProps={{ inputLabel: { shrink: true } }}
       />
