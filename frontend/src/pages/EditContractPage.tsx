@@ -1,10 +1,10 @@
-import { Box, CircularProgress, Toolbar, Typography } from "@mui/material";
+import { Box, Toolbar } from "@mui/material";
 import Navbar from "../componants/Navbar";
 import Footer from "../componants/Footer";
 import EditContractForm from "../componants/EditContractForm";
-import { useGetEmployeeContract } from "../hooks/useGetEmployeeContract";
-import { useUpdateContract } from "../hooks/useUpdateContract";
-import type { UpdateContractDto } from "../types/Contract";
+// import { useGetEmployeeContract } from "../hooks/useGetEmployeeContract";
+// import { useUpdateContract } from "../hooks/useUpdateContract";
+// import type { UpdateContractDto } from "../types/Contract";
 import { useNavigate, useParams } from "react-router-dom";
 
 function EditContractPage() {
@@ -15,25 +15,8 @@ function EditContractPage() {
 
   const navigate = useNavigate();
 
-  const {
-    data: contract,
-    isLoading,
-    isError,
-  } = useGetEmployeeContract(employeeId!, contractId!);
-
-  const { mutate: updateContractMutation, isPending } = useUpdateContract();
-
-  const handleFormSubmit = (updatedValues: UpdateContractDto) => {
-    if (!employeeId || !contractId) return;
-
-    updateContractMutation(
-      { employeeId, contractId, contract: updatedValues },
-      {
-        onSuccess: () => {
-          navigate("/employee");
-        },
-      },
-    );
+  const handleSuccess = () => {
+    navigate("/employee");
   };
 
   return (
@@ -49,12 +32,18 @@ function EditContractPage() {
         <Box component="main" sx={{ p: 3, flexGrow: 1 }}>
           <Toolbar />
           <Box sx={{ mb: 3 }}>
-            <Typography variant="h4" component="h1">
+            <h1 className="text-3xl text-blue-900 text-center">
               Edit Employee's Contract
-            </Typography>
+            </h1>
 
             <Box sx={{ py: 3 }}>
-              {isLoading && <CircularProgress />}
+              <EditContractForm
+                key={contractId}
+                employeeId={employeeId}
+                contractId={contractId}
+                onSuccess={handleSuccess}
+              />
+              {/* {isLoading && <CircularProgress />}
               {isError || (!isLoading && !contract) ? (
                 <Typography color="error">
                   Error loading contract details.
@@ -68,7 +57,7 @@ function EditContractPage() {
                   onSubmit={handleFormSubmit}
                   isPending={isPending}
                 />
-              )}
+              )} */}
             </Box>
           </Box>
         </Box>

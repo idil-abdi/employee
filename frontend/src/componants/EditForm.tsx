@@ -5,7 +5,6 @@ import {
 } from "../types/Employee";
 import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
 import { useGetEmployee } from "../hooks/useGetEmployee";
-import { useState } from "react";
 
 function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
   const { data: employeeData, isLoading: isFetching } =
@@ -17,17 +16,6 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
     error: updateError,
   } = useUpdateEmployee();
 
-  const [formData, setFormData] = useState<UpdateEmployeeDto>(() => ({
-    firstName: employeeData?.firstName ?? "",
-    lastName: employeeData?.lastName ?? "",
-    address: employeeData?.address ?? "",
-    dateOfBirth: employeeData?.dateOfBirth ?? "",
-    email: employeeData?.email ?? "",
-    mobileNumber: employeeData?.mobileNumber ?? "",
-    department: employeeData?.department ?? "",
-    description: employeeData?.description ?? "",
-  }));
-
   const formatDateForInput = (dateValue?: string | Date | null): string => {
     if (!dateValue) return "";
     if (typeof dateValue === "string") {
@@ -36,17 +24,25 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
     return dateValue.toISOString().split("T")[0];
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const updatedData: UpdateEmployeeDto = {
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      dateOfBirth: formData.get("dateOfBirth") as string,
+      email: formData.get("email") as string,
+      mobileNumber: formData.get("mobileNumber") as string,
+      address: formData.get("address") as string,
+      department: formData.get("department") as string,
+      description: formData.get("description") as string,
+    };
 
     if (employeeId) {
       updateEmployee(
-        { id: employeeId, data: formData },
+        { id: employeeId, data: updatedData },
         { onSuccess: () => onSuccess?.() },
       );
     }
@@ -70,8 +66,7 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
         fullWidth
         label="First Name"
         name="firstName"
-        value={formData.firstName}
-        onChange={handleChange}
+        defaultValue={employeeData?.firstName ?? ""}
         slotProps={{ inputLabel: { shrink: true } }}
         required
       />
@@ -79,8 +74,7 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
         fullWidth
         label="Last Name"
         name="lastName"
-        value={formData.lastName}
-        onChange={handleChange}
+        defaultValue={employeeData?.lastName ?? ""}
         slotProps={{ inputLabel: { shrink: true } }}
         required
       />
@@ -89,8 +83,7 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
         name="dateOfBirth"
         type="date"
         fullWidth
-        value={formatDateForInput(formData.dateOfBirth)}
-        onChange={handleChange}
+        defaultValue={formatDateForInput(employeeData?.dateOfBirth)}
         slotProps={{ inputLabel: { shrink: true } }}
       />
       <TextField
@@ -98,8 +91,7 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
         label="Email"
         name="email"
         type="email"
-        value={formData.email}
-        onChange={handleChange}
+        defaultValue={employeeData?.email ?? ""}
         slotProps={{ inputLabel: { shrink: true } }}
         required
       />
@@ -107,24 +99,21 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
         fullWidth
         label="Mobile Number"
         name="mobileNumber"
-        value={formData.mobileNumber}
-        onChange={handleChange}
+        defaultValue={employeeData?.mobileNumber ?? ""}
         slotProps={{ inputLabel: { shrink: true } }}
       />
       <TextField
         fullWidth
         label="Address"
         name="address"
-        value={formData.address}
-        onChange={handleChange}
+        defaultValue={employeeData?.address ?? ""}
         slotProps={{ inputLabel: { shrink: true } }}
       />
       <TextField
         fullWidth
         label="Department"
         name="department"
-        value={formData.department}
-        onChange={handleChange}
+        defaultValue={employeeData?.department ?? ""}
         slotProps={{ inputLabel: { shrink: true } }}
       />
 
@@ -135,8 +124,7 @@ function EditForm({ employeeId, onSuccess }: EmployeeFormProps) {
           name="description"
           multiline
           rows={3}
-          value={formData.description}
-          onChange={handleChange}
+          defaultValue={employeeData?.description ?? ""}
           slotProps={{ inputLabel: { shrink: true } }}
         />
       </Box>

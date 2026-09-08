@@ -6,8 +6,8 @@ export const getEmployeeContracts = async (employeeId: string): Promise<Contract
     return response.data;
 };
 
-export const getEmployeeContract = async (employeeId: string, contractId: string): Promise<Contract> => {
-    const response = await api.get<Contract>(`/employee/${employeeId}/contracts/${contractId}`);
+export const getEmployeeContract = async (employeeId: string, contractId: string): Promise<{data: Contract}> => {
+    const response = await api.get(`/employee/${employeeId}/contracts/${contractId}`);
     return response.data;
 };
 

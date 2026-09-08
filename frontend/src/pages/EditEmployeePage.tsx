@@ -7,8 +7,6 @@ import Footer from "../componants/Footer";
 function EditEmployeePage() {
   const { employeeId } = useParams<{ employeeId: string }>();
 
-  console.log(employeeId);
-
   const navigate = useNavigate();
 
   const handleSuccess = () => {
@@ -31,7 +29,10 @@ function EditEmployeePage() {
               mb: 3,
             }}
           >
-            <h1>Edit Employee</h1>
+            <h1 className="text-3xl text-blue-900 text-center">
+              Edit Employee
+            </h1>
+
             <Box sx={{ py: 3 }}>
               <EditForm
                 key={employeeId}

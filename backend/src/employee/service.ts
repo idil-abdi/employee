@@ -12,7 +12,6 @@ export const createEmployeeService = (prisma: PrismaClient) => ({
         if (existing) {
             throw new ConflictException('Employee already exists');
         }
-        console.log("Payload sent to Prisma:", data);
 
         return prisma.employee.create({
             data: { 

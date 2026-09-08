@@ -4,7 +4,13 @@ function About() {
   return (
     <>
       <Container id="about" maxWidth="md" sx={{ py: 8 }}>
-        <Typography sx={{ textAlign: "center", fontSize: "1.5rem" }}>
+        <Typography
+          sx={{
+            textAlign: "center",
+            fontSize: "1.5rem",
+            mb: 1,
+          }}
+        >
           About Us
         </Typography>
         <Typography sx={{ fontSize: "1.1rem" }}>

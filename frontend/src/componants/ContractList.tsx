@@ -28,9 +28,6 @@ function ContractList({ employeeId }: Props) {
 
   const handleEdit = (contractId: string) => {
     navigate(`/employee/${employeeId}/contracts/${contractId}`);
-    console.log(
-      `Contract edit btn clicked  /employee/${employeeId}/contracts/${contractId}`,
-    );
   };
 
   const handleConfirmDelete = () => {
@@ -40,8 +37,8 @@ function ContractList({ employeeId }: Props) {
       { employeeId, contractId: selectedContractId },
       {
         onSuccess: () => {
-          setSelectedContractId(null); // Closes the dialog cleanly
-          navigate("/employee"); // Navigates back to employee page
+          setSelectedContractId(null);
+          navigate("/employee");
         },
         onError: (err) => {
           console.error("Delete failed:", err);

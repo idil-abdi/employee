@@ -1,13 +1,15 @@
 import {
   Box,
   Button,
+  CircularProgress,
   // Checkbox,
   // FormControlLabel,
   MenuItem,
   TextField,
 } from "@mui/material";
-import type { Contract, UpdateContractDto } from "../types/Contract";
-import { useState } from "react";
+import type { UpdateContractDto } from "../types/Contract";
+import { useGetEmployeeContract } from "../hooks/useGetEmployeeContract";
+import { useUpdateContract } from "../hooks/useUpdateContract";
 
 const contractTypeOptions = [
   {
@@ -25,50 +27,72 @@ const contractTypeOptions = [
 ];
 
 type EditContractFormProps = {
-  initialData: Contract;
-  onSubmit: (data: UpdateContractDto) => void;
-  isPending: boolean;
+  employeeId?: string;
+  contractId?: string;
+  onSuccess?: () => void;
 };
 
 function EditContractForm({
-  initialData,
-  onSubmit,
-  isPending,
+  employeeId,
+  contractId,
+  onSuccess,
 }: EditContractFormProps) {
-  const [formData, setFormData] = useState<UpdateContractDto>({
-    title: initialData.title || "",
-    contractType: initialData.contractType || "FULL_TIME",
-    salary: initialData.salary || 0,
-    weeklyHours: initialData.weeklyHours || 0,
-    startDate: initialData.startDate || "",
-    endDate: initialData.endDate || "",
-  });
+  const { data: contractData, isLoading } = useGetEmployeeContract(
+    employeeId!,
+    contractId!,
+  );
 
-  // const [isOngoing, setIsOngoing] = useState(!initialData.endDate);
+  console.log(contractData);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "number" ? (value === "" ? 0 : Number(value)) : value,
-    }));
+  const { mutate: updateContract, isPending, error } = useUpdateContract();
+
+  const formatDateForInput = (dateValue?: string | Date | null): string => {
+    if (!dateValue) return "";
+    if (typeof dateValue === "string") {
+      return dateValue.split("T")[0];
+    }
+    return dateValue.toISOString().split("T")[0];
   };
 
-  // const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const checked = e.target.checked;
-  //   setIsOngoing(checked);
-  //   if (checked) {
-  //     setFormData((prev) => ({ ...prev, endDate: "" }));
-  //   }
-  // };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(formData);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const updatedData: UpdateContractDto = {
+      title: formData.get("title") as string,
+      contractType: formData.get("contractType") as string,
+      startDate: formData.get("startDate") as string,
+      endDate: formData.get("endDate") as string,
+      salary: Number(formData.get("salary")),
+      weeklyHours: Number(formData.get("weeklyHours")),
+    };
+
+    if (employeeId && contractId) {
+      updateContract(
+        {
+          employeeId,
+          contractId,
+          contract: updatedData,
+        },
+        { onSuccess: () => onSuccess?.() },
+      );
+    }
   };
+
+  // BEFORE:
+  if (isLoading) {
+    return <CircularProgress />;
+  }
+
+  // AFTER:
+  if (isLoading || !contractData) {
+    return <CircularProgress />;
+  }
 
   return (
     <Box
+      key={contractData ? contractId : "loading"}
       component="form"
       onSubmit={handleSubmit}
       sx={{
@@ -81,8 +105,7 @@ function EditContractForm({
         fullWidth
         label="Title"
         name="title"
-        value={formData.title}
-        onChange={handleChange}
+        defaultValue={contractData?.title ?? ""}
         required
       />
 
@@ -91,8 +114,7 @@ function EditContractForm({
         fullWidth
         name="contractType"
         label="Contract Type"
-        value={formData.contractType}
-        onChange={handleChange}
+        defaultValue={contractData?.contractType ?? ""}
       >
         {contractTypeOptions.map((option) => (
           <MenuItem key={option.value} value={option.value}>
@@ -106,8 +128,7 @@ function EditContractForm({
         label="Salary"
         name="salary"
         type="number"
-        value={formData.salary}
-        onChange={handleChange}
+        defaultValue={contractData?.salary ?? ""}
         required
       />
 
@@ -116,8 +137,7 @@ function EditContractForm({
         label="Hours per week"
         name="weeklyHours"
         type="number"
-        value={formData.weeklyHours}
-        onChange={handleChange}
+        defaultValue={contractData?.weeklyHours ?? ""}
         required
       />
 
@@ -126,8 +146,7 @@ function EditContractForm({
         name="startDate"
         type="date"
         fullWidth
-        value={formData.startDate}
-        onChange={handleChange}
+        defaultValue={formatDateForInput(contractData?.startDate)}
         slotProps={{ inputLabel: { shrink: true } }}
         required
       />
@@ -137,8 +156,7 @@ function EditContractForm({
         name="endDate"
         type="date"
         fullWidth
-        value={formData.endDate}
-        onChange={handleChange}
+        defaultValue={formatDateForInput(contractData?.endDate)}
         // disabled={isOngoing}
         slotProps={{ inputLabel: { shrink: true } }}
       />
@@ -157,6 +175,12 @@ function EditContractForm({
         }
         label="On Going"
       /> */}
+
+      {error && (
+        <Box sx={{ gridColumn: { sm: "span 2" }, color: "error.main" }}>
+          {(error as Error).message || "Something went wrong"}
+        </Box>
+      )}
 
       <Button
         type="submit"

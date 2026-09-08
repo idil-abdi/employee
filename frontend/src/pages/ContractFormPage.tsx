@@ -21,7 +21,9 @@ function ContractFormPage() {
               mb: 3,
             }}
           >
-            <h1>Edit Contract Form</h1>
+            <h1 className="text-3xl text-blue-900 text-center">
+              Contract Form
+            </h1>
             <Box sx={{ py: 3 }}>
               <ContractForm />
             </Box>

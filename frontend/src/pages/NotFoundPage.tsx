@@ -1,6 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Footer from "../componants/Footer";
+import Navbar from "../componants/Navbar";
 
 function NotFoundPage() {
   return (
@@ -8,14 +9,19 @@ function NotFoundPage() {
       <Box
         sx={{
           display: "flex",
+          justifyContent: "center",
+          alignItem: "center",
           flexDirection: "column",
           minHeight: "100vh",
         }}
       >
-        <div>NotFoundPage ❌</div>
-        <Link to={"/"}>
-          <Button>Go Back Home</Button>
-        </Link>
+        <Navbar />
+        <div className="text-center m-auto">
+          <h1>NotFoundPage ❌</h1>
+          <Link to={"/"}>
+            <Button>Go Back Home</Button>
+          </Link>
+        </div>
         <Footer />
       </Box>
     </>
