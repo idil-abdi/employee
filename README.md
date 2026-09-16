@@ -7,6 +7,42 @@
 
 This project is a full-stack employee & contract management application that helps companies track their workers and their work agreements in one place. Using a React frontend, a hapi.js server, and a PostgreSQL database, it replaces messy spreadsheets by linking each employee to all of their past and current contracts. This lets company easily add, update, or remove employee records while keeping a clear history of how every worker's job terms have changed over time.
 
+## 🚀 Getting Started
+
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+* [Node.js](https://nodejs.org/) (which includes npm)
+* [Git](https://git-scm.com/)
+
+### 1. Clone the Repository
+Open your terminal and clone the project:
+```bash
+git clone <your-repository-url>
+cd <your-repository-name>
+```
+
+### 2. Start the Backend Server
+Open your terminal:
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### 3. Start the front Server
+Open your another terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+
+
+
 # 🛠️ Technologies
 
 ## Backend + Frontend
@@ -57,21 +93,3 @@ The frontend is responsible for:
 * [ ] Managing application state
 * [ ] Handling loading states
 * [ ] Handling errors
-
----
-
-
-# 📡 API Documentation
-
-| Method | Endpoint                                          | Purpose                               |
-| ------ | -----------------------------------------------   | ----------------                      |
-| GET    | `/employee`                                       | Get All employees                     |     
-| GET    | `/employee/{id}`                                  | Get employee by id                    |     
-| GET    | `/employee/{employeeId}/contracts`                | Get All employee's contracts          |     
-| GET    | `/employee/{employeeId}/contracts/{contractId}`   | Get one of employee's contract by Id  |     
-| POST   | `/employee`                                       | Create employee                       |     
-| POST   | `employee/{employeeId}/contracts`                 | Create contract for an employee       |     
-| PUT    | `/employee/{id}`                                  | Update employee                       |     
-| PUT    | `/employee/{employeeId}/contracts/{contractId}`   | Update one of employee's contract     |     
-| DELETE | `/employee/:id`                                   | Delete employee                       |     
-| DELETE | `/employee/{employeeId}/contracts/{contractId}`   | Delete contract                       |     
